@@ -4,7 +4,7 @@ public class ThisGameConfiguration : MonoBehaviour
 {
     
     #if UNITY_EDITOR
-    public int targetFPS = 30;
+    [Min(0)] public int targetFPS = 30;
     #endif
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,7 +15,7 @@ public class ThisGameConfiguration : MonoBehaviour
         {
             // Limit FPS
             QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = Mathf.Abs(targetFPS);
+            Application.targetFrameRate = targetFPS;
         }
         #endif
         Destroy(gameObject);

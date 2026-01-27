@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 // Taken from https://www.youtube.com/watch?v=bxG3XP4MVzk
 // With a couple upgrades, like 3D compatibility and generating the rope in any direction
@@ -10,7 +11,8 @@ public class RopeVerlet : MonoBehaviour
     [SerializeField] private int _numOfRopeSegments = 50;
     [SerializeField] private float _ropeSegmentLength = 0.225f;
     [SerializeField] private Vector3 _generationAxis = Vector3.back;
-    [SerializeField] private Transform _attachPoint;
+    [SerializeField] private Rigidbody _attachPointFront;
+    [SerializeField] private Rigidbody _attachPointBack;
     
     [Header("Physics")]
     [SerializeField] private Vector3 _gravity = new Vector3(0f,0f,0f);
@@ -18,6 +20,9 @@ public class RopeVerlet : MonoBehaviour
     [SerializeField] private LayerMask _collisionMask;
     [SerializeField] private float _collisionRadius = 0.1f;
     [SerializeField] private float _bounceFactor = 0.1f; // Higher = slippery, Lower = sticky
+    [SerializeField] private bool followFront = true;
+    [SerializeField] private float followStrength = 0.01f;
+    [SerializeField] private float _distanceBreakingPoint = 0.5f;
 
     [Header("Constraints")]
     [SerializeField] private int _numOfContraintRuns = 50;
@@ -34,17 +39,29 @@ public class RopeVerlet : MonoBehaviour
     {
         _lineRenderer = GetComponent<LineRenderer>();
         _lineRenderer.positionCount = _numOfRopeSegments;
-
-        if (!_attachPoint) _attachPoint = transform;
         
-        Vector3 startPoint = _attachPoint.position;
-        _generationAxis.Normalize();
+        // Line renderer must be at (0,0,0)
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+
+        if (!_attachPointFront)
+        {
+            _attachPointFront = new GameObject("RopeAnchorFront").AddComponent<Rigidbody>();
+            _attachPointBack = new GameObject("RopeAnchorBack").AddComponent<Rigidbody>();
+            _attachPointFront.isKinematic = _attachPointBack.isKinematic = true;
+            _attachPointFront.transform.parent = _attachPointBack.transform.parent = null;
+        }
+        
+        Vector3 startPoint = _attachPointFront.position;
+        _generationAxis = _attachPointFront.transform.TransformDirection(_generationAxis).normalized;
 
         for (int i = 0; i < _numOfRopeSegments; i++)
         {
             _ropeSegments.Add(new RopeSegment(startPoint));
             startPoint += _generationAxis * _ropeSegmentLength;
         }
+
+        _attachPointBack.position = startPoint; // Attach to the end of the rope
     }
 
     // Update is called once per frame
@@ -57,12 +74,45 @@ public class RopeVerlet : MonoBehaviour
     {
         Simulate();
         
-        for (int i = 0; i < _numOfContraintRuns; i++)
+        if (followFront)
         {
-            ApplyConstraints();
+            for (int i = 0; i < _numOfContraintRuns; i++)
+            {
+                ApplyConstraints();
+
+                if (i % _collisionSegmentInterval == 0)
+                    HandleCollisions();
+            }
             
-            if (i %  _collisionSegmentInterval == 0)
-                HandleCollisions();
+            // Adjust back segment
+            var changeVectorFinal = GetChangeVector(_ropeSegments[^1].CurrentPosition, _attachPointBack.position);
+            var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
+            Debug.Log(force);
+            _attachPointBack.AddForce(force, ForceMode.Acceleration);
+            if (changeVectorFinal.magnitude > _distanceBreakingPoint)
+            {
+                followFront = false;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _numOfContraintRuns; i++)
+            {
+                ApplyConstraintsBackwards();
+
+                if (i % _collisionSegmentInterval == 0)
+                    HandleCollisions();
+            }
+            
+            // Adjust  segment
+            var changeVectorFinal = GetChangeVector(_ropeSegments[0].CurrentPosition, _attachPointFront.position);
+            var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
+            Debug.Log(force);
+            _attachPointFront.AddForce(force, ForceMode.Acceleration);
+            if (changeVectorFinal.magnitude < _distanceBreakingPoint)
+            {
+                followFront = true; 
+            }
         }
     }
 
@@ -94,32 +144,72 @@ public class RopeVerlet : MonoBehaviour
     private void ApplyConstraints()
     {
         RopeSegment ropeSegment = _ropeSegments[0];
-        ropeSegment.CurrentPosition = _attachPoint.position;
+        ropeSegment.CurrentPosition = _attachPointFront.position;
         _ropeSegments[0] = ropeSegment;
         for (int i = 0; i < _ropeSegments.Count - 1; i++)
         {
             RopeSegment currentSegment = _ropeSegments[i];
             RopeSegment nextSegment = _ropeSegments[i + 1];
             
-            float dist = (currentSegment.CurrentPosition - nextSegment.CurrentPosition).magnitude;
-            float difference = (dist - _ropeSegmentLength);
+            Vector3 changeVector = GetChangeVector(currentSegment.CurrentPosition, nextSegment.CurrentPosition);
             
-            Vector3 changeDir = (currentSegment.CurrentPosition - nextSegment.CurrentPosition).normalized;
-            Vector3 changeVector = changeDir * difference;
-
-            if (i != 0)
+            if (i == 0)
             {
-                currentSegment.CurrentPosition -= (changeVector * 0.5f);
-                nextSegment.CurrentPosition += (changeVector * 0.5f);
+                // Attached to what drags the rope
+                nextSegment.CurrentPosition += changeVector;
             }
             else
             {
-                nextSegment.CurrentPosition += changeVector;
+                currentSegment.CurrentPosition -= (changeVector * 0.5f);
+                nextSegment.CurrentPosition += (changeVector * 0.5f);
             }
 
             _ropeSegments[i] = currentSegment;
             _ropeSegments[i + 1] = nextSegment;
         }
+
+    }
+    
+    private void ApplyConstraintsBackwards()
+    {
+        //Same as ApplyConstraints, but back to front instead
+        RopeSegment anchoredSegment = _ropeSegments[^1];
+        anchoredSegment.CurrentPosition = _attachPointBack.position;
+        _ropeSegments[^1] = anchoredSegment;
+        for (int i = _ropeSegments.Count - 1; i > 0; i--)
+        {
+            RopeSegment currentSegment = _ropeSegments[i];
+            RopeSegment nextSegment = _ropeSegments[i - 1];
+            
+            Vector3 changeVector = GetChangeVector(currentSegment.CurrentPosition, nextSegment.CurrentPosition);
+
+            if (i == (_ropeSegments.Count - 1))
+            {
+                // Attached to what drags the rope
+                nextSegment.CurrentPosition += changeVector;
+            }
+            else
+            {
+                currentSegment.CurrentPosition -= (changeVector * 0.5f);
+                nextSegment.CurrentPosition += (changeVector * 0.5f);
+            }
+
+            _ropeSegments[i] = currentSegment;
+            _ropeSegments[i - 1] = nextSegment;
+            
+        }
+        
+        //_attachPointFront.LookAt(_ropeSegments[0].CurrentPosition);
+        
+    }
+
+    private Vector3 GetChangeVector(Vector3 current, Vector3 next)
+    {
+        float dist = (current - next).magnitude;
+        float difference = (dist - _ropeSegmentLength);
+            
+        Vector3 changeDir = (current - next).normalized;
+        return (changeDir * difference);
     }
 
     private void HandleCollisions()
@@ -154,6 +244,8 @@ public class RopeVerlet : MonoBehaviour
             segment.OldPosition = segment.CurrentPosition - velocity;
             _ropeSegments[i] = segment;
         }
+        
+        
     }
 
     struct RopeSegment

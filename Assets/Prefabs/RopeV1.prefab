@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6789129796758048097}
   - component: {fileID: 726485869305629348}
   m_Layer: 0
-  m_Name: RopeObject
+  m_Name: RopeV1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,13 +155,17 @@ MonoBehaviour:
   _numOfRopeSegments: 50
   _ropeSegmentLength: 0.1
   _generationAxis: {x: 0, y: 0, z: -1}
-  _attachPoint: {fileID: 0}
-  _gravity: {x: 0, y: -1, z: 0}
+  _attachPointFront: {fileID: 0}
+  _attachPointBack: {fileID: 0}
+  _gravity: {x: 0, y: 0, z: 0}
   _dampingFactor: 0.6
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   _collisionRadius: 0.2
   _bounceFactor: 0.1
+  followFront: 1
+  followStrength: 15
+  _distanceBreakingPoint: 0.5
   _numOfContraintRuns: 50
   _collisionSegmentInterval: 2
