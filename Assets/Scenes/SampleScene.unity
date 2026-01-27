@@ -1461,6 +1461,22 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 200658079}
+    - target: {fileID: 3192979957877903413, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192979957877903413, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3753573683275514150, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
+      propertyPath: rotationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3753573683275514150, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
+      propertyPath: maxRotationSpeed
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 5037567751851926669, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
       propertyPath: m_Name
       value: Dog

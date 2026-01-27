@@ -20,7 +20,7 @@ public class RopeVerlet : MonoBehaviour
     [SerializeField] private LayerMask _collisionMask;
     [SerializeField] private float _collisionRadius = 0.1f;
     [SerializeField] private float _bounceFactor = 0.1f; // Higher = slippery, Lower = sticky
-    [SerializeField] private bool followFront = true;
+    [SerializeField] public bool followFront = true;
     [SerializeField] private float followStrength = 0.01f;
     [SerializeField] private float _distanceBreakingPoint = 0.5f;
 
@@ -32,7 +32,8 @@ public class RopeVerlet : MonoBehaviour
     
     private LineRenderer _lineRenderer;
     private List<RopeSegment> _ropeSegments = new List<RopeSegment>();
-    
+
+    [HideInInspector] public bool tooStretchedOut = false;
     
 
     private void Awake()
@@ -52,7 +53,7 @@ public class RopeVerlet : MonoBehaviour
             _attachPointFront.transform.parent = _attachPointBack.transform.parent = null;
         }
         
-        Vector3 startPoint = _attachPointFront.position;
+        Vector3 startPoint = _attachPointFront.position - _attachPointFront.transform.forward * 0.1f;
         _generationAxis = _attachPointFront.transform.TransformDirection(_generationAxis).normalized;
 
         for (int i = 0; i < _numOfRopeSegments; i++)
@@ -87,11 +88,11 @@ public class RopeVerlet : MonoBehaviour
             // Adjust back segment
             var changeVectorFinal = GetChangeVector(_ropeSegments[^1].CurrentPosition, _attachPointBack.position);
             var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
-            Debug.Log(force);
             _attachPointBack.AddForce(force, ForceMode.Acceleration);
-            if (changeVectorFinal.magnitude > _distanceBreakingPoint)
+            if (!tooStretchedOut && changeVectorFinal.magnitude > _distanceBreakingPoint)
             {
                 followFront = false;
+                tooStretchedOut = true;
             }
         }
         else
@@ -107,11 +108,11 @@ public class RopeVerlet : MonoBehaviour
             // Adjust  segment
             var changeVectorFinal = GetChangeVector(_ropeSegments[0].CurrentPosition, _attachPointFront.position);
             var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
-            Debug.Log(force);
             _attachPointFront.AddForce(force, ForceMode.Acceleration);
-            if (changeVectorFinal.magnitude < _distanceBreakingPoint)
+            if (tooStretchedOut && changeVectorFinal.magnitude < _distanceBreakingPoint)
             {
-                followFront = true; 
+                followFront = true;
+                tooStretchedOut = false;
             }
         }
     }
@@ -144,7 +145,7 @@ public class RopeVerlet : MonoBehaviour
     private void ApplyConstraints()
     {
         RopeSegment ropeSegment = _ropeSegments[0];
-        ropeSegment.CurrentPosition = _attachPointFront.position;
+        ropeSegment.CurrentPosition = _attachPointFront.position - _attachPointFront.transform.forward * 0.1f;
         _ropeSegments[0] = ropeSegment;
         for (int i = 0; i < _ropeSegments.Count - 1; i++)
         {

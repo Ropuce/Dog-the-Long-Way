@@ -165,7 +165,8 @@ MonoBehaviour:
   _collisionRadius: 0.2
   _bounceFactor: 0.1
   followFront: 1
-  followStrength: 15
+  followStrength: 35
   _distanceBreakingPoint: 0.5
   _numOfContraintRuns: 50
   _collisionSegmentInterval: 2
+  tooStretchedOut: 0
