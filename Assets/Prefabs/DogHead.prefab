@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 196794713627555360}
   - component: {fileID: 462013751989370465}
   - component: {fileID: 2014990387007883964}
+  - component: {fileID: 9221661038484559050}
   m_Layer: 0
   m_Name: DogHead
   m_TagString: Untagged
@@ -255,11 +256,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rope: {fileID: 0}
-  rotationSpeed: 0.3
-  maxRotationSpeed: 0.5
+  rotationSpeed: 1
+  maxRotationSpeed: 90
   stableAngle: 10
   acceleration: 10
   maxSpeed: 3
+--- !u!135 &9221661038484559050
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782960742732073292}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!1 &9110939568170449525
 GameObject:
   m_ObjectHideFlags: 0

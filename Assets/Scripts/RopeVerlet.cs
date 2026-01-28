@@ -23,6 +23,7 @@ public class RopeVerlet : MonoBehaviour
     [SerializeField] public bool followFront = true;
     [SerializeField] private float followStrength = 35f;
     [SerializeField] private float _distanceBreakingPoint = 0.5f;
+    [SerializeField] private bool _pushRigidbodies = false; //TODO push rigidbodies in contacts
 
     [Header("Constraints")]
     [SerializeField] private int _numOfContraintRuns = 50;
@@ -86,9 +87,15 @@ public class RopeVerlet : MonoBehaviour
             }
             
             // Adjust back segment
-            var changeVectorFinal = GetChangeVector(_ropeSegments[^1].CurrentPosition, _attachPointBack.position);
-            var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
-            _attachPointBack.AddForce(force, ForceMode.Acceleration);
+            var segment = _ropeSegments[^1];
+            var changeVectorFinal = GetChangeVector(segment.CurrentPosition, _attachPointBack.position);
+            if (changeVectorFinal.sqrMagnitude != 0)
+            {
+                var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
+                _attachPointBack.AddForce(force, ForceMode.Acceleration);
+                segment.CurrentPosition = segment.OldPosition = _attachPointBack.position - _attachPointBack.transform.forward * _ropeSegmentLength;
+                _ropeSegments[^1] = segment;
+            }
             if (!tooStretchedOut && changeVectorFinal.magnitude > _distanceBreakingPoint)
             {
                 followFront = false;
@@ -106,9 +113,14 @@ public class RopeVerlet : MonoBehaviour
             }
             
             // Adjust  segment
-            var changeVectorFinal = GetChangeVector(_ropeSegments[0].CurrentPosition, _attachPointFront.position);
-            var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
-            _attachPointFront.AddForce(force, ForceMode.Acceleration);
+            var segment = _ropeSegments[0];
+            var changeVectorFinal = GetChangeVector(segment.CurrentPosition, _attachPointFront.position);
+            if (changeVectorFinal.sqrMagnitude != 0)
+            {
+                var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
+                _attachPointFront.AddForce(force, ForceMode.Acceleration);
+                segment.CurrentPosition = segment.OldPosition = _attachPointFront.position - _attachPointFront.transform.forward * _ropeSegmentLength;
+            }
             if (tooStretchedOut && changeVectorFinal.magnitude < _distanceBreakingPoint)
             {
                 followFront = true;
@@ -199,8 +211,6 @@ public class RopeVerlet : MonoBehaviour
             _ropeSegments[i - 1] = nextSegment;
             
         }
-        
-        //_attachPointFront.LookAt(_ropeSegments[0].CurrentPosition);
         
     }
 

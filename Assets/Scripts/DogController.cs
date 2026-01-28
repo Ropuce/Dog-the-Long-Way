@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,6 +21,11 @@ public class DogController : MonoBehaviour
 
     private Vector2 _movement =  Vector2.zero;
     private Vector3 _lastDirection;
+
+    // Grab onto objects
+    private List<Grabbable> _possibleAttachments = new List<Grabbable>();
+    private HingeJoint _attachmentPoint;
+    
 
     private float MaxSpeed
     {
@@ -78,5 +85,44 @@ public class DogController : MonoBehaviour
     {
         _movement = value.Get<Vector2>();
     }
-    
+
+    void OnGrab(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            if (_possibleAttachments.Count > 0)
+            {
+                _attachmentPoint = gameObject.AddComponent<HingeJoint>();
+                JointLimits limits = new JointLimits()
+                {
+                    min = -30,
+                    max = 30,
+                    bounciness = 0,
+                    contactDistance = 0.2f
+                };
+                _attachmentPoint.limits = limits;
+                _attachmentPoint.useLimits = true;
+                _attachmentPoint.anchor = new Vector3(0, 0, 1);
+                _attachmentPoint.axis = new Vector3(0, 1, 0);
+                _attachmentPoint.connectedBody = _possibleAttachments[0].rb;
+            }
+        }
+        else if (_attachmentPoint)
+        {
+             Destroy(_attachmentPoint);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        var grabbable = other.gameObject.GetComponent<Grabbable>();
+        if (grabbable != null && !_possibleAttachments.Contains(grabbable))
+            _possibleAttachments.Add(grabbable);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        var grabbable = other.gameObject.GetComponent<Grabbable>();
+        _possibleAttachments.Remove(grabbable);
+    }
 }
