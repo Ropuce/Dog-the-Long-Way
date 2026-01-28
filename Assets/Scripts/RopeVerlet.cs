@@ -7,12 +7,19 @@ using UnityEngine.Serialization;
 // With a couple upgrades, like 3D compatibility and generating the rope in any direction
 public class RopeVerlet : MonoBehaviour
 {
+    [Header("Dogttachments")]
+    [SerializeField] private DogController _dogController;
+    [SerializeField] private DogRear _dogRear;
+    
+    
     [Header("Rope")]
     [SerializeField] private int _numOfRopeSegments = 50;
+    [SerializeField] private float _ropeLength = 10f;
     [SerializeField] private float _ropeSegmentLength = 0.225f;
     [SerializeField] private Vector3 _generationAxis = Vector3.back;
     [SerializeField] private Rigidbody _attachPointFront;
     [SerializeField] private Rigidbody _attachPointBack;
+    [SerializeField] public bool tooStretchedOut = false;
     
     [Header("Physics")]
     [SerializeField] private Vector3 _gravity = new Vector3(0f,0f,0f);
@@ -33,9 +40,18 @@ public class RopeVerlet : MonoBehaviour
     
     private LineRenderer _lineRenderer;
     private List<RopeSegment> _ropeSegments = new List<RopeSegment>();
-
-    [HideInInspector] public bool tooStretchedOut = false;
     
+
+    public float RopeLength
+    {
+        get => _ropeLength;
+        set
+        {
+            _ropeSegmentLength = value / _numOfRopeSegments;
+            _ropeLength = value;
+        }
+    }
+
 
     private void Awake()
     {
@@ -56,7 +72,7 @@ public class RopeVerlet : MonoBehaviour
         
         Vector3 startPoint = _attachPointFront.position - _attachPointFront.transform.forward * 0.1f;
         _generationAxis = _attachPointFront.transform.TransformDirection(_generationAxis).normalized;
-
+        
         for (int i = 0; i < _numOfRopeSegments; i++)
         {
             _ropeSegments.Add(new RopeSegment(startPoint));
@@ -89,6 +105,10 @@ public class RopeVerlet : MonoBehaviour
             // Adjust back segment
             var segment = _ropeSegments[^1];
             var changeVectorFinal = GetChangeVector(segment.CurrentPosition, _attachPointBack.position);
+            if (_dogController._attachmentPoint)
+            {
+                Debug.Log($"[Going forwards] DistanceBack: {changeVectorFinal} (magnitude: {changeVectorFinal.magnitude})");
+            }
             if (changeVectorFinal.sqrMagnitude != 0)
             {
                 var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
@@ -96,11 +116,13 @@ public class RopeVerlet : MonoBehaviour
                 segment.CurrentPosition = segment.OldPosition = _attachPointBack.position - _attachPointBack.transform.forward * _ropeSegmentLength;
                 _ropeSegments[^1] = segment;
             }
-            if (!tooStretchedOut && changeVectorFinal.magnitude > _distanceBreakingPoint)
+
+            if (changeVectorFinal.magnitude > _distanceBreakingPoint)
             {
-                followFront = false;
+                followFront = (bool)_dogController._attachmentPoint;
                 tooStretchedOut = true;
             }
+            else tooStretchedOut = false;
         }
         else
         {
@@ -115,6 +137,11 @@ public class RopeVerlet : MonoBehaviour
             // Adjust  segment
             var segment = _ropeSegments[0];
             var changeVectorFinal = GetChangeVector(segment.CurrentPosition, _attachPointFront.position);
+            if (_dogController._attachmentPoint)
+            {
+                Debug.Log($"[Going backwards] DistanceFront: {changeVectorFinal} (magnitude: {changeVectorFinal.magnitude})");
+            }
+            
             if (changeVectorFinal.sqrMagnitude != 0)
             {
                 var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
@@ -125,6 +152,11 @@ public class RopeVerlet : MonoBehaviour
             {
                 followFront = true;
                 tooStretchedOut = false;
+            }
+            else if (changeVectorFinal.magnitude > _distanceBreakingPoint)
+            {
+                followFront = (bool) _dogController._attachmentPoint;
+                tooStretchedOut = true;
             }
         }
     }

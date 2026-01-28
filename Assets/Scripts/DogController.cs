@@ -24,7 +24,7 @@ public class DogController : MonoBehaviour
 
     // Grab onto objects
     private List<Grabbable> _possibleAttachments = new List<Grabbable>();
-    private HingeJoint _attachmentPoint;
+    public HingeJoint _attachmentPoint;
     
 
     private float MaxSpeed
@@ -72,11 +72,20 @@ public class DogController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        _rb.AddTorque(Vector3.up * (rotationSpeed * _movement.x), ForceMode.Acceleration);
+        if (_attachmentPoint)
+        {
+            _rope.followFront = true;
+            _rb.AddForce(transform.right * (_movement.x * acceleration),ForceMode.Acceleration);
+        }
+        else
+        {
+            _rb.AddTorque(Vector3.up * (rotationSpeed * _movement.x), ForceMode.Acceleration);
+        }
+        
         if (!_rope.tooStretchedOut && _movement.y > 0)
         {
             _rope.followFront = true;
-            _rb.AddForce(transform.forward * (acceleration * _movement.y));
+            _rb.AddForce(transform.forward * (acceleration * _movement.y), ForceMode.Acceleration);
         }
     }
     
@@ -93,15 +102,21 @@ public class DogController : MonoBehaviour
             if (_possibleAttachments.Count > 0)
             {
                 _attachmentPoint = gameObject.AddComponent<HingeJoint>();
-                JointLimits limits = new JointLimits()
+                _attachmentPoint.limits = new JointLimits()
                 {
                     min = -30,
                     max = 30,
-                    bounciness = 0,
+                    bounciness = 0.5f,
                     contactDistance = 0.2f
                 };
-                _attachmentPoint.limits = limits;
                 _attachmentPoint.useLimits = true;
+                _attachmentPoint.spring = new JointSpring()
+                {
+                    targetPosition = 0,
+                    spring = 0.5f,
+                    damper = 0.9f
+                };
+                _attachmentPoint.useSpring = true;
                 _attachmentPoint.anchor = new Vector3(0, 0, 1);
                 _attachmentPoint.axis = new Vector3(0, 1, 0);
                 _attachmentPoint.connectedBody = _possibleAttachments[0].rb;
@@ -110,6 +125,7 @@ public class DogController : MonoBehaviour
         else if (_attachmentPoint)
         {
              Destroy(_attachmentPoint);
+             _attachmentPoint = null;
         }
     }
 

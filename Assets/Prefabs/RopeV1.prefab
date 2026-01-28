@@ -152,11 +152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c64be49f0be2221fa5cb7025b503ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dogController: {fileID: 0}
+  _dogRear: {fileID: 0}
   _numOfRopeSegments: 50
+  _ropeLength: 10
   _ropeSegmentLength: 0.225
   _generationAxis: {x: 0, y: 0, z: -1}
   _attachPointFront: {fileID: 0}
   _attachPointBack: {fileID: 0}
+  tooStretchedOut: 0
   _gravity: {x: 0, y: 0, z: 0}
   _dampingFactor: 0.6
   _collisionMask:
@@ -170,4 +174,3 @@ MonoBehaviour:
   _pushRigidbodies: 0
   _numOfContraintRuns: 50
   _collisionSegmentInterval: 2
-  tooStretchedOut: 0
