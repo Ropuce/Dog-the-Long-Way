@@ -128,11 +128,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2617191899654993576}
+  - component: {fileID: 2014990387007883964}
   - component: {fileID: 7343614654132780550}
+  - component: {fileID: 9140964015123162260}
   - component: {fileID: 2277090795883199790}
   - component: {fileID: 196794713627555360}
   - component: {fileID: 462013751989370465}
-  - component: {fileID: 2014990387007883964}
   - component: {fileID: 9221661038484559050}
   m_Layer: 0
   m_Name: DogHead
@@ -150,13 +151,34 @@ Transform:
   m_GameObject: {fileID: 1782960742732073292}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.36662, y: 0.79, z: -3.0095396}
+  m_LocalPosition: {x: -11.36662, y: 0.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4545803992652424849}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2014990387007883964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782960742732073292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a13a838a48352d886b9e1e57ef85686c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rope: {fileID: 0}
+  _overrideStartingRotation: 0
+  _startingRotation: {x: 0, y: 0, z: 0}
+  rotationSpeed: 1
+  maxRotationSpeed: 90
+  stableAngle: 10
+  acceleration: 10
+  maxSpeed: 3
+  _attachmentPoint: {fileID: 0}
 --- !u!33 &7343614654132780550
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -165,6 +187,29 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782960742732073292}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!136 &9140964015123162260
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782960742732073292}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!135 &2277090795883199790
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -243,24 +288,6 @@ MonoBehaviour:
   m_DefaultActionMap: Dog
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2014990387007883964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782960742732073292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a13a838a48352d886b9e1e57ef85686c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rope: {fileID: 0}
-  rotationSpeed: 1
-  maxRotationSpeed: 90
-  stableAngle: 10
-  acceleration: 10
-  maxSpeed: 3
 --- !u!135 &9221661038484559050
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -293,7 +320,6 @@ GameObject:
   - component: {fileID: 2032064868923186823}
   - component: {fileID: 1893498960135455850}
   - component: {fileID: 2559841737939456814}
-  - component: {fileID: 6739221982491088929}
   m_Layer: 0
   m_Name: Head (Temporary)
   m_TagString: Untagged
@@ -369,24 +395,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6739221982491088929
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9110939568170449525}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

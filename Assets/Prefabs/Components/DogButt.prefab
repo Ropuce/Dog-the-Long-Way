@@ -247,5 +247,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rope: {fileID: 0}
-  acceleration: 10
+  acceleration: 20
   maxSpeed: 3
