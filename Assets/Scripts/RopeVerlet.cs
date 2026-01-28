@@ -16,12 +16,12 @@ public class RopeVerlet : MonoBehaviour
     
     [Header("Physics")]
     [SerializeField] private Vector3 _gravity = new Vector3(0f,0f,0f);
-    [SerializeField] private float _dampingFactor = 0.98f;
+    [SerializeField] private float _dampingFactor = 0.8f;
     [SerializeField] private LayerMask _collisionMask;
-    [SerializeField] private float _collisionRadius = 0.1f;
+    [SerializeField] private float _collisionRadius = 0.2f;
     [SerializeField] private float _bounceFactor = 0.1f; // Higher = slippery, Lower = sticky
     [SerializeField] public bool followFront = true;
-    [SerializeField] private float followStrength = 0.01f;
+    [SerializeField] private float followStrength = 35f;
     [SerializeField] private float _distanceBreakingPoint = 0.5f;
 
     [Header("Constraints")]

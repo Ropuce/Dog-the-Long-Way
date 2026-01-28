@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _numOfRopeSegments: 50
-  _ropeSegmentLength: 0.1
+  _ropeSegmentLength: 0.225
   _generationAxis: {x: 0, y: 0, z: -1}
   _attachPointFront: {fileID: 0}
   _attachPointBack: {fileID: 0}
@@ -167,6 +167,7 @@ MonoBehaviour:
   followFront: 1
   followStrength: 35
   _distanceBreakingPoint: 0.5
+  _pushRigidbodies: 0
   _numOfContraintRuns: 50
   _collisionSegmentInterval: 2
   tooStretchedOut: 0
