@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class pausemenu : MonoBehaviour
@@ -6,9 +7,8 @@ public class pausemenu : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
 
-    // Update is called once per frame
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape))
+    void OnPause(InputValue value) {
+        if (value.isPressed)
         {
             if (GameIsPaused)
             {
