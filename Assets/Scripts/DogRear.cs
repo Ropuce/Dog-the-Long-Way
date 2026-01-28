@@ -25,7 +25,7 @@ public class DogRear : MonoBehaviour
     {
         if (!_rope.tooStretchedOut && _movement < 0)
         {
-            _rope.followFront = false;
+            _rope._followFront = false;
             _rb.AddForce(transform.forward * (acceleration * _movement));
 
         }

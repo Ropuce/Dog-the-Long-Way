@@ -27,8 +27,8 @@ public class RopeVerlet : MonoBehaviour
     [SerializeField] private LayerMask _collisionMask;
     [SerializeField] private float _collisionRadius = 0.2f;
     [SerializeField] private float _bounceFactor = 0.1f; // Higher = slippery, Lower = sticky
-    [SerializeField] public bool followFront = true;
-    [SerializeField] private float followStrength = 35f;
+    [FormerlySerializedAs("followFront")] [SerializeField] public bool _followFront = true;
+    [FormerlySerializedAs("followStrength")] [SerializeField] private float _followStrength = 35f;
     [SerializeField] private float _distanceBreakingPoint = 0.5f;
     [SerializeField] private bool _pushRigidbodies = false; //TODO push rigidbodies in contacts
 
@@ -92,7 +92,7 @@ public class RopeVerlet : MonoBehaviour
     {
         Simulate();
         
-        if (followFront)
+        if (_followFront)
         {
             for (int i = 0; i < _numOfContraintRuns; i++)
             {
@@ -111,7 +111,7 @@ public class RopeVerlet : MonoBehaviour
             }
             if (changeVectorFinal.sqrMagnitude != 0)
             {
-                var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
+                var force = (changeVectorFinal / changeVectorFinal.magnitude) * (_followStrength);
                 _attachPointBack.AddForce(force, ForceMode.Acceleration);
                 segment.CurrentPosition = segment.OldPosition = _attachPointBack.position - _attachPointBack.transform.forward * _ropeSegmentLength;
                 _ropeSegments[^1] = segment;
@@ -119,7 +119,7 @@ public class RopeVerlet : MonoBehaviour
 
             if (changeVectorFinal.magnitude > _distanceBreakingPoint)
             {
-                followFront = (bool)_dogController._attachmentPoint;
+                _followFront = (bool)_dogController._attachmentPoint;
                 tooStretchedOut = true;
             }
             else tooStretchedOut = false;
@@ -144,18 +144,18 @@ public class RopeVerlet : MonoBehaviour
             
             if (changeVectorFinal.sqrMagnitude != 0)
             {
-                var force = (changeVectorFinal / changeVectorFinal.magnitude) * (followStrength);
+                var force = (changeVectorFinal / changeVectorFinal.magnitude) * (_followStrength);
                 _attachPointFront.AddForce(force, ForceMode.Acceleration);
                 segment.CurrentPosition = segment.OldPosition = _attachPointFront.position - _attachPointFront.transform.forward * _ropeSegmentLength;
             }
             if (tooStretchedOut && changeVectorFinal.magnitude < _distanceBreakingPoint)
             {
-                followFront = true;
+                _followFront = true;
                 tooStretchedOut = false;
             }
             else if (changeVectorFinal.magnitude > _distanceBreakingPoint)
             {
-                followFront = (bool) _dogController._attachmentPoint;
+                _followFront = (bool) _dogController._attachmentPoint;
                 tooStretchedOut = true;
             }
         }

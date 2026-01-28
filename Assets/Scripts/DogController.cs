@@ -12,6 +12,8 @@ public class DogController : MonoBehaviour
     [SerializeField] private RopeVerlet _rope;
     private Transform _visual;
 
+    [Header("Configuration")]
+    [SerializeField] private Vector3 _startingRotation = Vector3.zero;
     [Header("Controls")]
     [SerializeField] private float rotationSpeed = 0.3f;
     [SerializeField] private float maxRotationSpeed = 0.5f; // Degrees per second
@@ -51,6 +53,8 @@ public class DogController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        transform.rotation = Quaternion.Euler(_startingRotation);
+        
         _rb = GetComponent<Rigidbody>();
         _visual = transform.GetChild(0);
         if (!_visual)
@@ -74,7 +78,7 @@ public class DogController : MonoBehaviour
     {
         if (_attachmentPoint)
         {
-            _rope.followFront = true;
+            _rope._followFront = true;
             _rb.AddForce(transform.right * (_movement.x * acceleration),ForceMode.Acceleration);
         }
         else
@@ -84,7 +88,7 @@ public class DogController : MonoBehaviour
         
         if (!_rope.tooStretchedOut && _movement.y > 0)
         {
-            _rope.followFront = true;
+            _rope._followFront = true;
             _rb.AddForce(transform.forward * (acceleration * _movement.y), ForceMode.Acceleration);
         }
     }
