@@ -1361,17 +1361,9 @@ PrefabInstance:
       propertyPath: _startingRotation.y
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 4608457731023348916, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5037567751851926669, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
       propertyPath: m_Name
       value: Dog
-      objectReference: {fileID: 0}
-    - target: {fileID: 5877618865517851119, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
