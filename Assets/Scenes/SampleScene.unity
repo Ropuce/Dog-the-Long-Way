@@ -368,11 +368,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6eae9be865dba046aabede2a53e1938, type: 3}
---- !u!20 &200658079 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1215052136360083621, guid: 79def75048ada31de98b898f92fe08ad, type: 3}
-  m_PrefabInstance: {fileID: 8248204945293295134}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &398355938
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,9 +737,9 @@ MonoBehaviour:
   _dogController: {fileID: 782051697}
   _rope: {fileID: 1896625046}
   _dogRear: {fileID: 1340838801}
-  _overrideRopeLength: 1
+  _overrideRopeLength: 0
   _ropeLength: 40
-  _overrideMovementSpeed: 1
+  _overrideMovementSpeed: 0
   _movementSpeed: 40
 --- !u!4 &652280545
 Transform:
@@ -1318,10 +1313,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 419690570316653227, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
-      propertyPath: _dogController
-      value: 
-      objectReference: {fileID: 782051697}
+    - target: {fileID: 447675940936640223, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
+      propertyPath: m_Constraints
+      value: 124
+      objectReference: {fileID: 0}
     - target: {fileID: 2078152736365262391, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.77
@@ -1362,17 +1357,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2992808507698394619, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 200658079}
     - target: {fileID: 3753573683275514150, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
       propertyPath: _startingRotation.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4608457731023348916, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5037567751851926669, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
       propertyPath: m_Name
       value: Dog
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877618865517851119, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1611,6 +1610,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8097928823741498241, guid: 79def75048ada31de98b898f92fe08ad, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097928823741498241, guid: 79def75048ada31de98b898f92fe08ad, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
@@ -1624,6 +1627,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 8248204945293295134}
+  - {fileID: 652280545}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1976381563}
@@ -1639,4 +1643,3 @@ SceneRoots:
   - {fileID: 6224243598630839297}
   - {fileID: 182101004}
   - {fileID: 1180225124}
-  - {fileID: 652280545}

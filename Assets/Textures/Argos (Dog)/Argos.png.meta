@@ -95,12 +95,342 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Argos_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 786
+        width: 160
+        height: 181
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5504aba95b0777f308cee3b1ba6a00ef
+      internalID: 1877970223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_1
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 786
+        width: 151
+        height: 185
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d9e0f6b565d6823991643eda41baf52
+      internalID: 2070791268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_2
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 785
+        width: 160
+        height: 199
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7255741c608c5017911b1d6f1d8b9d9
+      internalID: 1244674946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_3
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 785
+        width: 151
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45af3c320a14867d3b16e4260dbecf32
+      internalID: 351287467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_4
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 529
+        width: 158
+        height: 182
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a4a1df1ab3812a84ba217b9120f71f5
+      internalID: 775763762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_5
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 529
+        width: 151
+        height: 186
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec3a17dc985dbcb4e807ff958651989b
+      internalID: -637958351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_6
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 530
+        width: 158
+        height: 200
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44eb6a9f46b54dce0bd3d0e4c834edfb
+      internalID: 657408620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_7
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 530
+        width: 151
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dae96437ad4e70d37b8b6ca104a59475
+      internalID: 1587458560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_8
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 274
+        width: 139
+        height: 172
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f51db01b020e921fa302bd3345c4302
+      internalID: 1653177785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_9
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 274
+        width: 159
+        height: 191
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2365ed8d87992ba3ab842b792d99a211
+      internalID: 2116694242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_10
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 425
+        width: 71
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3023f6b3f4518b59a986a4098079be5d
+      internalID: 1060028962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_11
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 431
+        width: 71
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c98565794553112c4b99ed1009d14088
+      internalID: -189767572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_12
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 17
+        width: 151
+        height: 203
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b623bda3cd1346e68d23a31f3a53ebb
+      internalID: -1534794202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_13
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 198
+        width: 202
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17d415f8d54f20176ae21cb73c1b25ad
+      internalID: -1135762611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Argos_14
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 194
+        width: 202
+        height: 229
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d355d6fd192fba9bc9b496bcb972af48
+      internalID: -1067673601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 42d7ddab33d13a726b1dede0f1707267
     internalID: 0
     vertices: []
     indices: 
@@ -109,7 +439,22 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Argos_0: 1877970223
+      Argos_1: 2070791268
+      Argos_10: 1060028962
+      Argos_11: -189767572
+      Argos_12: -1534794202
+      Argos_13: -1135762611
+      Argos_14: -1067673601
+      Argos_2: 1244674946
+      Argos_3: 351287467
+      Argos_4: 775763762
+      Argos_5: -637958351
+      Argos_6: 657408620
+      Argos_7: 1587458560
+      Argos_8: 1653177785
+      Argos_9: 2116694242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

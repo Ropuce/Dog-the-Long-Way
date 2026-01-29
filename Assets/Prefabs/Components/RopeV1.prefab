@@ -57,7 +57,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 81f9b18144014fc2691e4e9c55fd9af8, type: 2}
+  - {fileID: 2100000, guid: 017a8b7da9271c97fa076af1b7240a8e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,7 +132,7 @@ LineRenderer:
     numCornerVertices: 40
     numCapVertices: 90
     alignment: 0
-    textureMode: 3
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
@@ -168,8 +168,8 @@ MonoBehaviour:
     m_Bits: 55
   _collisionRadius: 0.2
   _bounceFactor: 0.1
-  followFront: 1
-  followStrength: 35
+  _followFront: 1
+  _followStrength: 35
   _distanceBreakingPoint: 0.5
   _pushRigidbodies: 0
   _numOfContraintRuns: 50
