@@ -41,7 +41,8 @@ public class DogController : MonoBehaviour
 
     // Grab onto objects
     private List<Grabbable> _possibleAttachments = new List<Grabbable>();
-    public HingeJoint _attachmentPoint;
+    public Joint _attachmentPoint;
+    public RigidbodyConstraints _attachmentConstraints;
     
     // Victory and defeat conditions
     public bool alive = true;
@@ -134,31 +135,51 @@ public class DogController : MonoBehaviour
         {
             if (_possibleAttachments.Count > 0)
             {
-                _attachmentPoint = gameObject.AddComponent<HingeJoint>();
-                _attachmentPoint.limits = new JointLimits()
+                var grabbable = _possibleAttachments[0];
+                _rb.rotation.SetLookRotation(_rb.position-grabbable.rb.position);
+
+                _attachmentConstraints = grabbable.rb.constraints;
+                
+                if ((grabbable.rb.constraints & RigidbodyConstraints.FreezePosition) == 0)
                 {
-                    min = -30,
-                    max = 30,
-                    bounciness = 0.5f,
-                    contactDistance = 0.2f
-                };
-                _attachmentPoint.useLimits = true;
-                _attachmentPoint.spring = new JointSpring()
+                    grabbable.rb.constraints = RigidbodyConstraints.None;
+                    _attachmentPoint = grabbable.gameObject.AddComponent<FixedJoint>();
+                }
+                else
                 {
-                    targetPosition = 0,
-                    spring = 0.5f,
-                    damper = 0.9f
-                };
-                _attachmentPoint.useSpring = true;
+                    SpringJoint spJoint;
+                    _attachmentPoint = spJoint = grabbable.gameObject.AddComponent<SpringJoint>();
+                    spJoint.minDistance = 0;
+                    spJoint.maxDistance = 0;
+                    spJoint.damper = 50f;
+                    spJoint.spring = 50f;
+                }
+                //_attachmentPoint.limits = new JointLimits()
+                //{
+                //    min = -30,
+                //    max = 30,
+                //    bounciness = 0.5f,
+                //    contactDistance = 0.2f
+                //};
+                //_attachmentPoint.useLimits = true;
+                //_attachmentPoint.spring = new JointSpring()
+                //{
+                //    targetPosition = 0,
+                //    spring = 0.5f,
+                //    damper = 0.9f
+                //};
+                //_attachmentPoint.useSpring = true;
                 _attachmentPoint.anchor = new Vector3(0, 0, 1);
                 _attachmentPoint.axis = new Vector3(0, 1, 0);
-                _attachmentPoint.connectedBody = _possibleAttachments[0].rb;
+                _attachmentPoint.connectedBody = _rb;
             }
         }
         else if (_attachmentPoint)
         {
+            _attachmentPoint.gameObject.GetComponent<Rigidbody>().constraints = _attachmentConstraints;
              Destroy(_attachmentPoint);
              _attachmentPoint = null;
+             _attachmentConstraints = RigidbodyConstraints.None;
         }
     }
 
