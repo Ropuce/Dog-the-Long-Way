@@ -103,7 +103,11 @@ public class RopeVerlet : MonoBehaviour
             }
             
             // Adjust back segment
+            
             var segment = _ropeSegments[^1];
+            segment.CurrentPosition = segment.OldPosition = _attachPointBack.position;
+            _ropeSegments[^1] = segment;
+            segment = _ropeSegments[^2];
             var changeVectorFinal = GetChangeVector(segment.CurrentPosition, _attachPointBack.position);
             if (_dogController._attachmentPoint)
             {
@@ -114,7 +118,7 @@ public class RopeVerlet : MonoBehaviour
                 var force = (changeVectorFinal / changeVectorFinal.magnitude) * (_followStrength);
                 _attachPointBack.AddForce(force, ForceMode.Acceleration);
                 segment.CurrentPosition = segment.OldPosition = _attachPointBack.position - _attachPointBack.transform.forward * _ropeSegmentLength;
-                _ropeSegments[^1] = segment;
+                _ropeSegments[^2] = segment;
             }
 
             if (changeVectorFinal.magnitude > _distanceBreakingPoint)
@@ -136,6 +140,9 @@ public class RopeVerlet : MonoBehaviour
             
             // Adjust  segment
             var segment = _ropeSegments[0];
+            segment.CurrentPosition = segment.OldPosition = _attachPointFront.position;
+            _ropeSegments[0] = segment;
+            segment = _ropeSegments[1];
             var changeVectorFinal = GetChangeVector(segment.CurrentPosition, _attachPointFront.position);
             if (_dogController._attachmentPoint)
             {

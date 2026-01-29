@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public struct CutsceneSlide
 {
     public Sprite sprite;
-    public float speed;
+    [FormerlySerializedAs("speed")] public float duration;
+    public float slideSpeed;
     public Vector3 initialPosition;
     public Vector3 targetPosition;
     public float vanishSpeed;
@@ -35,10 +37,12 @@ public class CutsceneSlides : MonoBehaviour
         {
             GameObject image = Instantiate(slidePrefab, cutsceneSlide.initialPosition,_camera?.transform.rotation??Quaternion.identity);
             image.GetComponent<SpriteRenderer>().sprite = cutsceneSlide.sprite;
-            while (Vector3.Distance(image.transform.position, cutsceneSlide.targetPosition) > 0.01f)
+            float timeElapsed = 0;
+            while (timeElapsed < cutsceneSlide.duration)
             {
-                image.transform.position = Vector3.Lerp(image.transform.position, cutsceneSlide.targetPosition, cutsceneSlide.speed * Time.deltaTime);
+                image.transform.position = Vector3.Lerp(image.transform.position, cutsceneSlide.targetPosition, cutsceneSlide.slideSpeed * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
+                timeElapsed += Time.deltaTime;
             }
 
             StartCoroutine(VanishSlide(cutsceneSlide, image));
@@ -47,12 +51,12 @@ public class CutsceneSlides : MonoBehaviour
 
     IEnumerator VanishSlide(CutsceneSlide slide, GameObject image)
     {
-        SpriteRenderer renderer = image.GetComponent<SpriteRenderer>();
-        Color color = renderer.color;
+        SpriteRenderer spriteRenderer = image.GetComponent<SpriteRenderer>();
+        Color color = spriteRenderer.color;
         while (color.a > 0)
         {
             color.a -= slide.vanishSpeed;
-            renderer.color = color;
+            spriteRenderer.color = color;
             yield return new WaitForEndOfFrame();
         }
 
