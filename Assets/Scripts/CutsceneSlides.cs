@@ -47,12 +47,12 @@ public class CutsceneSlides : MonoBehaviour
 
     IEnumerator VanishSlide(CutsceneSlide slide, GameObject image)
     {
-        SpriteRenderer renderer = image.GetComponent<SpriteRenderer>();
-        Color color = renderer.color;
+        SpriteRenderer spriteRenderer = image.GetComponent<SpriteRenderer>();
+        Color color = spriteRenderer.color;
         while (color.a > 0)
         {
             color.a -= slide.vanishSpeed;
-            renderer.color = color;
+            spriteRenderer.color = color;
             yield return new WaitForEndOfFrame();
         }
 
