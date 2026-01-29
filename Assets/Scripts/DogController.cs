@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -15,13 +17,14 @@ public class DogController : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] private bool _overrideStartingRotation;
     [SerializeField] private Vector3 _startingRotation = Vector3.zero;
+    [SerializeField] public string _nextLevel = "SampleScene";
     
     [Header("Controls")]
     [SerializeField] private float rotationSpeed = 0.3f;
     [SerializeField] private float maxRotationSpeed = 0.5f; // Degrees per second
     [SerializeField] private float stableAngle = 10f; // TODO make the head not turn too far
-    [SerializeField] private float acceleration = 10f;
-    [SerializeField] private float maxSpeed = 3f;
+    [SerializeField] public float acceleration = 10f;
+    [SerializeField] public float maxSpeed = 3f;
 
     private Vector2 _movement =  Vector2.zero;
     private Vector3 _lastDirection;
@@ -29,6 +32,10 @@ public class DogController : MonoBehaviour
     // Grab onto objects
     private List<Grabbable> _possibleAttachments = new List<Grabbable>();
     public HingeJoint _attachmentPoint;
+    
+    // Victory and defeat conditions
+    public bool alive = true;
+    public bool goalReached = false;
     
 
     private float MaxSpeed
@@ -78,6 +85,8 @@ public class DogController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!alive) return;
+        
         if (_attachmentPoint)
         {
             _rope._followFront = true;
@@ -146,5 +155,50 @@ public class DogController : MonoBehaviour
     {
         var grabbable = other.gameObject.GetComponent<Grabbable>();
         _possibleAttachments.Remove(grabbable);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (alive && collision.gameObject.CompareTag("Death"))
+        {
+            OnDefeat();
+        }
+    }
+
+    Coroutine _levelEndRoutine = null;
+    public void OnDefeat()
+    {
+        alive = false;
+        if (_levelEndRoutine == null)
+            _levelEndRoutine = StartCoroutine(DefeatCoroutine());
+    }
+
+    public void OnVictory()
+    {
+        goalReached = true;
+        if (_levelEndRoutine == null)
+        {
+            
+        }
+    }
+
+    IEnumerator DefeatCoroutine()
+    {
+        // Animation and stuff goes here
+
+        yield return null;
+        
+        // Reload
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator VictoryRoutine()
+    {
+        // Animation and stuff goes here
+
+        yield return null;
+        
+        // Reload
+        SceneManager.LoadScene(_nextLevel);
     }
 }

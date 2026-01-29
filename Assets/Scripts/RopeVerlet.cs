@@ -265,6 +265,12 @@ public class RopeVerlet : MonoBehaviour
 
             foreach (Collider col in colliders)
             {
+                if (_dogController.alive && col.CompareTag("Death"))
+                {
+                    _dogController.OnDefeat();
+                }
+                
+                
                 Vector3 closestPoint = col.ClosestPoint(segment.CurrentPosition);
                 float distance = Vector3.Distance(segment.CurrentPosition, closestPoint);
                 
