@@ -165,7 +165,7 @@ MonoBehaviour:
   _dampingFactor: 0.6
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 439
   _collisionRadius: 0.2
   _bounceFactor: 0.1
   _followFront: 1

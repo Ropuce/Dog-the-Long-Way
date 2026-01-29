@@ -15,4 +15,8 @@ public class Carriage : MonoBehaviour
         _rb = GetComponentInChildren<Rigidbody>();
         _rb.linearVelocity = transform.TransformVector(velocity);
     }
+
+    void OnCollisionEnter(Collision col){
+        Debug.Log(col.gameObject.name);
+    }
 }
