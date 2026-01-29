@@ -207,6 +207,10 @@ public class DogController : MonoBehaviour
             apple._eaten = true;
             Destroy(apple.gameObject);
         }
+        else if (alive && collision.gameObject.CompareTag("Finish"))
+        {
+            OnVictory();
+        }
         else if (alive && collision.gameObject.CompareTag("Death"))
         {
             OnDefeat();
@@ -226,7 +230,7 @@ public class DogController : MonoBehaviour
         goalReached = true;
         if (_levelEndRoutine == null)
         {
-            
+            _levelEndRoutine = StartCoroutine(VictoryRoutine());
         }
     }
 
@@ -247,7 +251,7 @@ public class DogController : MonoBehaviour
 
         yield return null;
         
-        // Reload
+        // Load next
         SceneManager.LoadScene(_nextLevel);
     }
 }
