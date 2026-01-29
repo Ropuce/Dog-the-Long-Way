@@ -173,6 +173,9 @@ public class DogController : MonoBehaviour
                 _attachmentPoint.anchor = new Vector3(0, 0, 1);
                 _attachmentPoint.axis = new Vector3(0, 1, 0);
                 _attachmentPoint.connectedBody = _rb;
+
+                var animationTrigger = grabbable.gameObject.GetComponent<GrabAnimationTrigger>();
+                animationTrigger?.TriggerAnimation();
             }
         }
         else if (_attachmentPoint)
