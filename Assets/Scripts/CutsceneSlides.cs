@@ -35,6 +35,7 @@ public class CutsceneSlides : MonoBehaviour
         {
             GameObject image = Instantiate(slidePrefab, cutsceneSlide.initialPosition,_camera?.transform.rotation??Quaternion.identity);
             spawnedSprites.Add(image);
+            image.GetComponent<SpriteRenderer>().sprite = cutsceneSlide.sprite;
             while (Vector3.Distance(image.transform.position, cutsceneSlide.targetPosition) > 0.01f)
             {
                 image.transform.position = Vector3.Lerp(image.transform.position, cutsceneSlide.targetPosition, cutsceneSlide.speed * Time.deltaTime);
