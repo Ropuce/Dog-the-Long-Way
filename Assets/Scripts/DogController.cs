@@ -151,8 +151,9 @@ public class DogController : MonoBehaviour
                     _attachmentPoint = spJoint = grabbable.gameObject.AddComponent<SpringJoint>();
                     spJoint.minDistance = 0;
                     spJoint.maxDistance = 0;
-                    spJoint.damper = 50f;
-                    spJoint.spring = 50f;
+                    spJoint.damper = 5f;
+                    spJoint.spring = 500f;
+                    spJoint.enableCollision = true;
                 }
                 //_attachmentPoint.limits = new JointLimits()
                 //{

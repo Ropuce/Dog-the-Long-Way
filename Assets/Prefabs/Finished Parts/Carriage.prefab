@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7461187029066750194}
   - component: {fileID: 8804709017553451720}
   - component: {fileID: 1215329708233127965}
+  - component: {fileID: 6488287147409131300}
   m_Layer: 0
   m_Name: Carriage
   m_TagString: Death
@@ -73,9 +74,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d10d7fa4e84282388fc0ee5ebb28fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carriageConfig:
-    velocity: {x: 0, y: 0, z: 5}
-    duration: 5
+  velocity: {x: 0, y: 0, z: 5}
+--- !u!114 &6488287147409131300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856516283904945641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9fa2e757690a7628acd3a55e9de4248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 5
 --- !u!1 &7087656327463853799
 GameObject:
   m_ObjectHideFlags: 0
