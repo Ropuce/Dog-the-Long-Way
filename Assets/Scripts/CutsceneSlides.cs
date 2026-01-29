@@ -11,6 +11,7 @@ public struct CutsceneSlide
     public float speed;
     public Vector3 initialPosition;
     public Vector3 targetPosition;
+    public float vanishSpeed;
 }
 
 public class CutsceneSlides : MonoBehaviour
@@ -30,17 +31,31 @@ public class CutsceneSlides : MonoBehaviour
 
     IEnumerator Cutscene()
     {
-        List<GameObject> spawnedSprites = new List<GameObject>();
         foreach (var cutsceneSlide in slides)
         {
             GameObject image = Instantiate(slidePrefab, cutsceneSlide.initialPosition,_camera?.transform.rotation??Quaternion.identity);
-            spawnedSprites.Add(image);
             image.GetComponent<SpriteRenderer>().sprite = cutsceneSlide.sprite;
             while (Vector3.Distance(image.transform.position, cutsceneSlide.targetPosition) > 0.01f)
             {
                 image.transform.position = Vector3.Lerp(image.transform.position, cutsceneSlide.targetPosition, cutsceneSlide.speed * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
+
+            StartCoroutine(VanishSlide(cutsceneSlide, image));
         }
+    }
+
+    IEnumerator VanishSlide(CutsceneSlide slide, GameObject image)
+    {
+        SpriteRenderer renderer = image.GetComponent<SpriteRenderer>();
+        Color color = renderer.color;
+        while (color.a > 0)
+        {
+            color.a -= slide.vanishSpeed;
+            renderer.color = color;
+            yield return new WaitForEndOfFrame();
+        }
+
+        Destroy(image);
     }
 }
