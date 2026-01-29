@@ -1,0 +1,45 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine;
+
+[Serializable]
+public struct CutsceneSlide
+{
+    public Sprite sprite;
+    public float speed;
+    public Vector3 initialPosition;
+    public Vector3 targetPosition;
+}
+
+public class CutsceneSlides : MonoBehaviour
+{
+    [SerializeField] private GameObject slidePrefab;
+    [SerializeField] private List<CutsceneSlide> slides;
+    [SerializeField] private bool autostart;
+    private Camera _camera;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        _camera = Camera.main;
+        if (autostart)
+            StartCoroutine(Cutscene());
+    }
+
+    IEnumerator Cutscene()
+    {
+        List<GameObject> spawnedSprites = new List<GameObject>();
+        foreach (var cutsceneSlide in slides)
+        {
+            GameObject image = Instantiate(slidePrefab, cutsceneSlide.initialPosition,_camera?.transform.rotation??Quaternion.identity);
+            spawnedSprites.Add(image);
+            while (Vector3.Distance(image.transform.position, cutsceneSlide.targetPosition) > 0.01f)
+            {
+                image.transform.position = Vector3.Lerp(image.transform.position, cutsceneSlide.targetPosition, cutsceneSlide.speed * Time.deltaTime);
+                yield return new WaitForEndOfFrame();
+            }
+        }
+    }
+}
