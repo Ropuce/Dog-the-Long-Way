@@ -17,7 +17,10 @@ public class DogController : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] private bool _overrideStartingRotation;
     [SerializeField] private Vector3 _startingRotation = Vector3.zero;
+    [SerializeField] private bool _overrideStartingPosition;
+    [SerializeField] private Vector3 _initialPositionOffset = Vector3.zero;
     [SerializeField] public string _nextLevel = "SampleScene";
+    [SerializeField] private Animator  _animator;
     
     [Header("Controls")]
     [SerializeField] private float rotationSpeed = 0.3f;

@@ -175,6 +175,7 @@ MonoBehaviour:
   _overrideStartingRotation: 0
   _startingRotation: {x: 0, y: 0, z: 0}
   _nextLevel: SampleScene
+  _animator: {fileID: 3971228445935838834}
   rotationSpeed: 1
   maxRotationSpeed: 90
   stableAngle: 10
@@ -323,6 +324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 843492935519929318}
   - component: {fileID: 815536957931709710}
+  - component: {fileID: 3971228445935838834}
   m_Layer: 0
   m_Name: Argos_0
   m_TagString: Untagged
@@ -400,6 +402,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3971228445935838834
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705416250629005040}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d2b36bcba468b08a98f60e350d81b5e5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9110939568170449525
 GameObject:
   m_ObjectHideFlags: 0
