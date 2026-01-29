@@ -119,7 +119,7 @@ public class RopeVerlet : MonoBehaviour
 
             if (changeVectorFinal.magnitude > _distanceBreakingPoint)
             {
-                _followFront = (bool)_dogController._attachmentPoint;
+                _followFront = false;//(bool)_dogController._attachmentPoint;
                 tooStretchedOut = true;
             }
             else tooStretchedOut = false;
@@ -155,7 +155,7 @@ public class RopeVerlet : MonoBehaviour
             }
             else if (changeVectorFinal.magnitude > _distanceBreakingPoint)
             {
-                _followFront = (bool) _dogController._attachmentPoint;
+                _followFront = true;
                 tooStretchedOut = true;
             }
         }
