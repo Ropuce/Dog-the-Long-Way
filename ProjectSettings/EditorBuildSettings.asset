@@ -11,6 +11,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 1afb9697b2292334b955593cc3cc7cf6
+  - enabled: 1
+    path: Assets/Scenes/1 Bosc.unity
+    guid: ad3ae2179ce4e504ca7a194317524504
+  - enabled: 1
+    path: Assets/Scenes/2 Ciutat.unity
+    guid: c4e0f12844abad040b94bb523f09760d
+  - enabled: 1
+    path: Assets/Scenes/3 Gel.unity
+    guid: dc9c06ba611e08c40812911e34c1a879
+  - enabled: 1
+    path: Assets/Scenes/4 Oasis.unity
+    guid: 62fd744765286c84c9657080cccea64c
+  - enabled: 1
+    path: Assets/Scenes/Video Inici.unity
+    guid: 01f18280311cf00a6983a4ecca3ac38c
+  - enabled: 1
+    path: Assets/Scenes/Video Final.unity
+    guid: c11f858c0f0dedef9b182fc6061b359d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 05b0a6266f28958ab9da1f9518b30f86, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

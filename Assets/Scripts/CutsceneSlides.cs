@@ -13,7 +13,7 @@ public struct CutsceneSlide
     public float slideSpeed;
     public Vector3 initialPosition;
     public Vector3 targetPosition;
-    public float vanishSpeed;
+    [FormerlySerializedAs("vanishSpeed")] public float vanishTime;
 }
 
 public class CutsceneSlides : MonoBehaviour
@@ -55,7 +55,7 @@ public class CutsceneSlides : MonoBehaviour
         Color color = spriteRenderer.color;
         while (color.a > 0)
         {
-            color.a -= slide.vanishSpeed;
+            color.a -= Time.deltaTime/slide.vanishTime;
             spriteRenderer.color = color;
             yield return new WaitForEndOfFrame();
         }

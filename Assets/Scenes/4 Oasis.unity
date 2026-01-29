@@ -367,7 +367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3753573683275514150, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
       propertyPath: _nextLevel
-      value: Menu
+      value: Video Final
       objectReference: {fileID: 0}
     - target: {fileID: 3753573683275514150, guid: 14a1b105327a4536885f527d3d56cae9, type: 3}
       propertyPath: _initialPositionOffset.x
@@ -3119,6 +3119,62 @@ PrefabInstance:
     - target: {fileID: 8402813667451179809, guid: 4141be60d478be84eacc1de54328af33, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slidePrefab
+      value: 
+      objectReference: {fileID: 5690126901402772894, guid: 48843e6d78f38154cbf27832c2b014d1, type: 3}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[1].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 980bcf731806dbe43b3739d780f16fd6, type: 3}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[0].duration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[1].duration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[0].slideSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[0].vanishTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[1].slideSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[1].vanishTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[1].targetPosition.x
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[1].targetPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[1].initialPosition.x
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516513749582079656, guid: 4141be60d478be84eacc1de54328af33, type: 3}
+      propertyPath: slides.Array.data[1].initialPosition.z
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
