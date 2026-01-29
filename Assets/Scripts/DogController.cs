@@ -66,6 +66,7 @@ public class DogController : MonoBehaviour
     void Start()
     {
         if (_overrideStartingRotation) transform.rotation = Quaternion.Euler(_startingRotation);
+        if (_overrideStartingPosition) transform.position += _initialPositionOffset;
         
         _rb = GetComponent<Rigidbody>();
         _visual = transform.GetChild(0);
