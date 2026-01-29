@@ -10,6 +10,13 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody))]
 public class DogController : MonoBehaviour
 {
+    private static readonly int b_MoveForward = Animator.StringToHash("MoveForward");
+    private static readonly int b_TooStretched = Animator.StringToHash("TooStretched");
+    private static readonly int b_Defeat = Animator.StringToHash("Defeat");
+    private static readonly int b_Grab = Animator.StringToHash("Grab");
+    private static readonly int t_AteApple = Animator.StringToHash("Ate Apple");
+
+
     private Rigidbody _rb;
     [SerializeField] private RopeVerlet _rope;
     private Transform _visual;
@@ -87,6 +94,13 @@ public class DogController : MonoBehaviour
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        _animator.SetBool(b_MoveForward, (_attachmentPoint) ? _movement.x != 0 :  _movement.y > 0);
+        _animator.SetBool(b_TooStretched, _rope.tooStretchedOut);
+        _animator.SetBool(b_Grab, _attachmentPoint);
+    }
+
     void FixedUpdate()
     {
         if (!alive) return;
@@ -163,7 +177,15 @@ public class DogController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (alive && collision.gameObject.CompareTag("Death"))
+        Apple apple = collision.gameObject.GetComponent<Apple>();
+        if (apple && !apple._eaten)
+        {
+            _animator.SetTrigger(t_AteApple);
+            _rope.RopeLength += apple._lengthIncrease;
+            apple._eaten = true;
+            Destroy(apple.gameObject);
+        }
+        else if (alive && collision.gameObject.CompareTag("Death"))
         {
             OnDefeat();
         }
@@ -189,7 +211,8 @@ public class DogController : MonoBehaviour
     IEnumerator DefeatCoroutine()
     {
         // Animation and stuff goes here
-
+        _animator.SetBool(b_Defeat, true);
+        
         yield return null;
         
         // Reload
